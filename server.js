@@ -14,3 +14,8 @@ var connection = mysql.createConnection({
     password: "J0rd4n@(*&^%$#2814",
     database: "employee_trackerdb"
 });
+//===============COMMAND TO THROW ERROR OR INITIATE INQUIRER UPON STARTUP============//
+connection.connect(function(err){
+    if (err) throw err;
+    runSearch();
+});
