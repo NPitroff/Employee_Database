@@ -19,3 +19,17 @@ connection.connect(function(err){
     if (err) throw err;
     runSearch();
 });
+//===============INQUIRER COMMAND PATH QUESTION 1====================//
+function runSearch(){
+    inquirer
+    .prompt({
+        name:"action",
+        type: "rawlist",
+        message: "GREETINGS! WHAT WOULD YOU LIKE TO DO?",
+        choices:[
+            "ADD Department, Role, and/or Employee",
+            "VIEW CURRENT Department, Role, and/or Employee's",
+            "UPDATE A(n) Department, Role, and/or Employee"
+        ]
+    })
+}
