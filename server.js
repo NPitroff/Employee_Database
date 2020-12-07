@@ -49,7 +49,7 @@ function runSearch() {
       }
     });
 }
-// ====================FUNCTIONS CALLED IN THE PATHS=============//
+// ====================FUNCTION ROUTE TO ADD INFORMATION TO THE DEPARTMENT, ROLE, AND EMPLOYEE=============//
 function addInformation() {
     inquirer
     .prompt({
@@ -62,11 +62,20 @@ function addInformation() {
             "ADD employee"
         ]
     })
+    //=======ADD TO THE DEPARTMENT========
     .then(function(answer){
         switch (answer.action){
             case "ADD department":
                 addDepartment();
                 break;
+    //========ADD TO THE ROLE=============
+            case "ADD role":
+                addRole();
+                break;
+    //========ADD TO THE EMPLOYEE===========
+            case "ADD employee":
+                addEmployee();
+                break;
         }
-    })
+    });
 }
