@@ -49,7 +49,7 @@ function runSearch() {
       }
     });
 }
-// ====================FUNCTION ROUTE TO ADD INFORMATION TO THE DEPARTMENT, ROLE, AND EMPLOYEE=============//
+// ====================FUNCTION ROUTE's TO ADD INFORMATION TO THE DEPARTMENT, ROLE, AND EMPLOYEE=============//
 function addInformation() {
     inquirer
     .prompt({
@@ -62,20 +62,43 @@ function addInformation() {
             "ADD employee"
         ]
     })
-    //=======ADD TO THE DEPARTMENT========
+    //=======IF YOU WANT TO ADD TO THE DEPARTMENT========
     .then(function(answer){
         switch (answer.action){
             case "ADD department":
                 addDepartment();
                 break;
-    //========ADD TO THE ROLE=============
+    //========IF YOU WANT TO ADD TO THE ROLE=============
             case "ADD role":
                 addRole();
                 break;
-    //========ADD TO THE EMPLOYEE===========
+    //========IF YOU WANT TO ADD TO THE EMPLOYEE===========
             case "ADD employee":
                 addEmployee();
                 break;
         }
     });
 }
+
+//=============ADD INFORMATION TO THE DEPARTMENT================//
+function addDepartment() {
+    inquirer
+    .prompt({
+        name:"department",
+        type:"input",
+        message:"PLEASE INPUT THE NAME OF THE NEW DEPARTMENT"
+    })
+    .then(function(answer){
+        var query = connection.query("INSERT INTO department SET ?",
+        {
+            _name: answer.department
+        },
+        function(err){
+            if(err) throw err;
+            console.log("NEW DEPARTMENT ADDED");
+            //======RESET TO BEGINNING OF PROMPT====
+            runSearch();
+        }
+        );
+    });
+};
