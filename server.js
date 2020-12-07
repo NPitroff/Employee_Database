@@ -32,4 +32,20 @@ function runSearch(){
             "UPDATE A(n) Department, Role, and/or Employee"
         ]
     })
+//==============PATH TO THE 'ADD' SELECTOR============//
+.then(function(answer){
+    switch (answer.action){
+    case "ADD Department, Role, and/or Employee":
+        addInformation();
+        break;
+//===============PATH TO THE 'VIEW' SELECTOR==========//
+case  "VIEW CURRENT Department, Role, and/or Employee's":
+        viewInformation();
+        break;
+//===============PATH TO THE 'UPDATE' SELECTOR========//
+case "UPDATE A(n) Department, Role, and/or Employee":
+        updateInformation();
+        break;
+}
+})
 }
