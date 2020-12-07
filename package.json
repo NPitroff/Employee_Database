@@ -1,0 +1,17 @@
+{
+  "name": "myemployeedb",
+  "version": "1.0.0",
+  "description": "\"Homework for week 12 to create a database of employees that can be edited through inquirer\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nicolai Pitroff",
+  "license": "ISC",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "inquirer": "^7.3.3",
+    "mysql": "^2.18.1",
+    "sequelize": "^6.3.5"
+  }
+}
