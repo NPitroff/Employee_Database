@@ -102,3 +102,27 @@ function addDepartment() {
         );
     });
 };
+//======================ADD INFORMATION TO THE ROLE==================//
+function addRole() {
+    inquirer
+    .prompt({
+        name:"role",
+        type:"input",
+        message:"PLEASE INPUT THE NAME OF THE NEW ROLE"
+    })
+    .then(function(answer){
+        var query = connection.query("INSERT INTO current_role SET ?",
+        {
+            title: answer.current_role,
+            salary: answer.current_role,
+            department_id: answer.employee_trackerdb.department.id
+        },
+        function(err){
+            if(err) throw err;
+            console.log("NEW ROLE ADDED");
+            //======RESET TO BEGINNING OF PROMPT====
+            runSearch();
+        }
+        );
+    });
+};
