@@ -5,21 +5,29 @@ CREATE DATABASE employee_trackerdb;
 USE employee_trackerdb;
 -- =============CREATE A TABLE TO HOLD THE DEPARTMENT==================
 CREATE TABLE department (
-    id INT PRIMARY KEY,
-    _name VARCHAR(45)
+    id INT NOT NULL AUTO_INCREMENT,
+    _name VARCHAR(45) NOT NULL,
+    PRIMARY KEY (id)
 );
--- =============CREATE A TABLE TO HOLD THE EMPLOYEE ROLE================
-CREATE TABLE current _role(
-    id INT PRIMARY KEY,
-    title VARCHAR(45),
-    salary DECIMAL(10,4),
-    department_id INT
+-- =============CREATE A TABLE TO HOLD THE ROLE================
+CREATE TABLE current_role(
+    id INT NOT NULL AUTO_INCREMENT,
+    title VARCHAR(45) NOT NULL,
+    salary DECIMAL(10,4) NOT NULL,
+    department_id INT NOT NULL,
+    PRIMARY KEY (id)
+    -- "FOREIGN KEY" LINKS THE DEPARTMENT ID TO THE ROLE TABLE--
+    -- "ON DELETE CASCADE" REMOVES THE CHILD LINKS FROM THIS ID IF IT IS REMOVED--
+    FOREIGN KEY (department_id) REFERENCES department(id) ON DELETE CASCADE
 );
 -- ===============CREATE A TABLE TO HOLD THE EMPLOYEE====================
 CREATE TABLE employee(
-    id INT PRIMARY KEY,
-    first_name VARCHAR(45),
-    last_name VARCHAR(45),
-    role_id INT,
-    manager_id INT
+    id INT NOT NULL AUTO_INCREMENT ,
+    first_name VARCHAR(45) NOT NULL,
+    last_name VARCHAR(45) NOT NULL,
+    role_id INT NOT NULL,
+    manager_id INT,
+    PRIMARY KEY(id),
+    FOREIGN KEY(role_id) REFERENCES current_role(id) ON DELETE CASCADE,
+    FOREIGN KEY(manager_id) REFERENCES employee(id) ON DELETE CASCADE
 );
