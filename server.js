@@ -159,90 +159,105 @@ function addRole() {
         });
     }
   );
-
 }
 //===============================FUNCTION FOR ADD EMPLOYEE=================================//
 function addEmployee() {
-    connection.query(
-      "SELECT * FROM current_role",
-      function (err, roleResp) {
-        if (err) throw err;
-        console.log(roleResp);
-        //
-        connection.query(
-            "SELECT * FROM employee",
-            function (err, empResp) {
-              if (err) throw err;
-              console.log(empResp);
-        inquirer
-          .prompt([
-            {
-              name: "first_name",
-              type: "input",
-              message: "PLEASE INPUT THE FIRST NAME OF THE NEW EMPLOYEE",
-            },
-            {
-              name: "last_name",
-              type: "input",
-              message: "PLEASE INPUT THE LAST NAME OF THE NEW EMPLOYEE",
-            },
-            {
-              name: "role_id",
-              type: "rawlist",
-              message: "PLEASE INPUT THE ROLE ID OF THE NEW EMPLOYEE",
-              choices:
-                roleResp.map((role) => {
-                  return {
-                    name: role.title,
-                    value: role.id,
-                  };
-                }),
-            },
-            {
-                name:"manager_id",
-                type:"rawlist",
-                message:"PLEASE INPUT THE MANAGER NAME",
-                choices:
-                function(){
-                    let choiceArray= [];
+  connection.query("SELECT * FROM current_role", function (err, roleResp) {
+    if (err) throw err;
+    console.log(roleResp);
+    //
+    connection.query("SELECT * FROM employee", function (err, empResp) {
+      if (err) throw err;
+      console.log(empResp);
+      inquirer
+        .prompt([
+          {
+            name: "first_name",
+            type: "input",
+            message: "PLEASE INPUT THE FIRST NAME OF THE NEW EMPLOYEE",
+          },
+          {
+            name: "last_name",
+            type: "input",
+            message: "PLEASE INPUT THE LAST NAME OF THE NEW EMPLOYEE",
+          },
+          {
+            name: "role_id",
+            type: "rawlist",
+            message: "PLEASE INPUT THE ROLE ID OF THE NEW EMPLOYEE",
+            choices: roleResp.map((role) => {
+              return {
+                name: role.title,
+                value: role.id,
+              };
+            }),
+          },
+          {
+            name: "manager_id",
+            type: "rawlist",
+            message: "PLEASE INPUT THE MANAGER NAME",
+            choices: function () {
+              let choiceArray = [];
 
-                    empResp.map((employee) => {
-                         
-                        let name = (employee.first_name + " " + employee.last_name);
-                        let value = employee.id;
-                        choiceArray.push({name,value})
-                      })
-                      let name = "N/A";
-                      let value = 0;
-                      choiceArray.push({name,value})
-                      return choiceArray;
-                    }   
+              empResp.map((employee) => {
+                let name = employee.first_name + " " + employee.last_name;
+                let value = employee.id;
+                choiceArray.push({ name, value });
+              });
+              let name = "N/A";
+              let value = 0;
+              choiceArray.push({ name, value });
+              return choiceArray;
+            },
+          },
+        ])
+        .then(function (answer) {
+          console.log(answer);
+          //IN CASE MANAGER IS IF THE MANAGER NAME IS "N/A"
+          if (answer.manager_id === 0) {
+            answer.manager_id = null;
+          }
+          var query = connection.query(
+            "INSERT INTO employee SET ?",
+            {
+              first_name: answer.first_name,
+              last_name: answer.last_name,
+              role_id: answer.role_id,
+              manager_id: answer.manager_id,
+            },
+            function (err) {
+              if (err) throw err;
+              console.log("NEW ROLE ADDED");
+              //======RESET TO BEGINNING OF PROMPT====
+              runSearch();
             }
-          ])
-          .then(function (answer) {
-            console.log(answer);
-            //IN CASE MANAGER IS IF THE MANAGER NAME IS "N/A"
-            if(answer.manager_id === 0){
-                answer.manager_id = null;
-            }
-            var query = connection.query(
-              "INSERT INTO employee SET ?",
-              {
-                first_name: answer.first_name,
-                last_name: answer.last_name,
-                role_id: answer.role_id,
-                manager_id: answer.manager_id
-              },
-              function (err) {
-                if (err) throw err;
-                console.log("NEW ROLE ADDED");
-                //======RESET TO BEGINNING OF PROMPT====
-                runSearch();
-              }
-            );
-          });
-        })
-      }
-    );
-  
+          );
+        });
+    });
+  });
+}
+//====================FUNCTION ROUTE FOR VIEWING DEPT, ROLE, AND/OR EMPLOYEE================//
+function viewInformation()
+inquirer
+.prompt({
+  name: "action",
+  type: "rawlist",
+  Message: "WHAT INFORMATION WOULD YOU LIKE TO DISPLAY?",
+  choices: ["VIEW department", "VIEW role", "VIEW employee"],
+})
+//==================IF YOU WANT TO VIEW THE DEPARTMENT===========
+.then(function (answer) {
+  switch (answer.action) {
+    case "ADD department":
+      addDepartment();
+      break;
+    //========IF YOU WANT TO VIEW THE ROLE=============
+    case "ADD role":
+      addRole();
+      break;
+    //========IF YOU WANT TO VIEW THE EMPLOYEE===========
+    case "ADD employee":
+      addEmployee();
+      break;
   }
+});
