@@ -248,16 +248,25 @@ inquirer
 //==================IF YOU WANT TO VIEW THE DEPARTMENT===========
 .then(function (answer) {
   switch (answer.action) {
-    case "ADD department":
-      addDepartment();
+    case "VIEW department":
+      viewDepartment();
       break;
     //========IF YOU WANT TO VIEW THE ROLE=============
-    case "ADD role":
-      addRole();
+    case "VIEW role":
+      viewRole();
       break;
     //========IF YOU WANT TO VIEW THE EMPLOYEE===========
-    case "ADD employee":
-      addEmployee();
+    case "VIEW employee":
+      viewEmployee();
       break;
   }
 });
+//======================VIEW DEPARTMENT========================================//
+function viewDepartment() {
+  connection.query("SELECT department.id, department.department_name",
+  function(err,results) {
+    if(err) throw err;
+    console.table(results);
+    runSearch();
+  })
+}
