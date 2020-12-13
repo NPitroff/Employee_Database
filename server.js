@@ -213,7 +213,7 @@ function addEmployee() {
         ])
         .then(function (answer) {
           console.log(answer);
-          //IN CASE MANAGER IS IF THE MANAGER NAME IS "N/A"
+          //=======IN CASE MANAGER IS IF THE MANAGER NAME IS "N/A"=======
           if (answer.manager_id === 0) {
             answer.manager_id = null;
           }
@@ -296,20 +296,33 @@ function viewEmployee() {
   );
 }
 //========================FUNCTION ROUTE TO UPDATE THE EMPLOYEE ROLE=============================//
-function updateInformation() {
-  connection.query("SELECT * FROM employee", function (err, employeeResponse) {
-    if (err) throw err;
-    inquirer.prompt({
-      name: "action",
-      type: "rawlist",
-      message: "WHICH EMPLOYEE WOULD YOU LIKE TO UPDATE?",
-      choices: employeeResponse.map((employee) => {
-        return {
-          value: employee.id,
-          name: employee.first_name + " " + employee.last_name,
-          role: employee.role_id,
-        };
-      }),
-    });
-  });
-}
+function updateInformation(doneUpdateEmployeeRCallback) {
+  // Must grab everything from employee table.
+  connection.query("SELECT * FROM employee", function (err, res) {
+      console.table(res);
+      inquirer.prompt(
+          [
+              { 
+                  name: "employeeId",
+                  type: "number",
+                  message: "Please input the id of the employee you want to update.",
+
+              },
+              {
+                  name: "employeeUpdateRole",
+                  type: "number",
+                  message: "Please update employee's role by selecting a new role ID.",
+              },
+
+          ]).then((userInput) => {
+              connection.query("UPDATE employee SET ? WHERE ?",
+                  [
+                      { role_Id: userInput.employeeUpdateRole },
+                      { id: userInput.employeeId }
+                  ], function (err, res) {
+                      console.log('error:' + err);
+                      viewEmployee();
+                  });
+          })
+  })
+};
