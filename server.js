@@ -284,3 +284,14 @@ function viewRole() {
     }
   )
 }
+//======================VIEW EMPLOYEE'S========================//
+function viewEmployee() {
+  connection.query(
+    "SELECT employee.id, employee.first_name, employee.last_name, employee.role_id, employee.manager_id FROM employee",
+    function (err,results){
+      if(err) throw err;
+      console.table(results);
+      runSearch();
+    }
+  )
+}
