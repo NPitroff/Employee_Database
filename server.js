@@ -237,36 +237,50 @@ function addEmployee() {
   });
 }
 //====================FUNCTION ROUTE FOR VIEWING DEPT, ROLE, AND/OR EMPLOYEE================//
-function viewInformation()
-inquirer
-.prompt({
-  name: "action",
-  type: "rawlist",
-  Message: "WHAT INFORMATION WOULD YOU LIKE TO DISPLAY?",
-  choices: ["VIEW department", "VIEW role", "VIEW employee"],
-})
-//==================IF YOU WANT TO VIEW THE DEPARTMENT===========
-.then(function (answer) {
-  switch (answer.action) {
-    case "VIEW department":
-      viewDepartment();
-      break;
-    //========IF YOU WANT TO VIEW THE ROLE=============
-    case "VIEW role":
-      viewRole();
-      break;
-    //========IF YOU WANT TO VIEW THE EMPLOYEE===========
-    case "VIEW employee":
-      viewEmployee();
-      break;
-  }
-});
+function viewInformation() {
+  inquirer
+    .prompt({
+      name: "action",
+      type: "rawlist",
+      Message: "WHAT INFORMATION WOULD YOU LIKE TO DISPLAY?",
+      choices: ["VIEW department", "VIEW role", "VIEW employee"],
+    })
+    //==================IF YOU WANT TO VIEW THE DEPARTMENT===========
+    .then(function (answer) {
+      switch (answer.action) {
+        case "VIEW department":
+          viewDepartment();
+          break;
+        //========IF YOU WANT TO VIEW THE ROLE=============
+        case "VIEW role":
+          viewRole();
+          break;
+        //========IF YOU WANT TO VIEW THE EMPLOYEE===========
+        case "VIEW employee":
+          viewEmployee();
+          break;
+      }
+    });
+}
 //======================VIEW DEPARTMENT========================================//
 function viewDepartment() {
-  connection.query("SELECT department.id, department.department_name",
-  function(err,results) {
-    if(err) throw err;
-    console.table(results);
-    runSearch();
-  })
+  connection.query(
+    "SELECT department.id, department._name FROM department",
+    function (err, results) {
+      if (err) throw err;
+      console.table(results);
+      runSearch();
+    }
+  );
+}
+//=====================VIEW ROLES===========================================//
+function viewRole() {
+  connection.query(
+    "SELECT current_role.id, current_role.title, current_role.salary, current_role.department_id FROM current_role",
+    function (err, results) {
+      if(err) throw err;
+      console.table(results);
+      runSearch();
+    }
+  )
 }
