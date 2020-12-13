@@ -278,20 +278,35 @@ function viewRole() {
   connection.query(
     "SELECT current_role.id, current_role.title, current_role.salary, current_role.department_id FROM current_role",
     function (err, results) {
-      if(err) throw err;
+      if (err) throw err;
       console.table(results);
       runSearch();
     }
-  )
+  );
 }
 //======================VIEW EMPLOYEE'S========================//
 function viewEmployee() {
   connection.query(
     "SELECT employee.id, employee.first_name, employee.last_name, employee.role_id, employee.manager_id FROM employee",
-    function (err,results){
-      if(err) throw err;
+    function (err, results) {
+      if (err) throw err;
       console.table(results);
       runSearch();
     }
-  )
+  );
+}
+//========================FUNCTION ROUTE TO UPDATE THE EMPLOYEE ROLE=============================//
+function updateInformation() {
+  inquirer.prompt({
+    name: "action",
+    type: "rawlist",
+    Message: "WHICH EMPLOYEE WOULD YOU LIKE TO UPDATE?",
+    choices: employeeResponse.map((empoyee) => {
+      return {
+        value: employee.id,
+        name: employee.first_name + " " + employee.last_name,
+        role: employee.role_id,
+      };
+    }),
+  });
 }
