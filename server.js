@@ -29,7 +29,7 @@ function runSearch() {
       choices: [
         "ADD Department, Role, and/or Employee",
         "VIEW CURRENT Department, Role, and/or Employee's",
-        "UPDATE A(n) Department, Role, and/or Employee",
+        "UPDATE An Employee Role",
       ],
     })
     //==============PATH TO THE 'ADD' SELECTOR============//
@@ -43,7 +43,7 @@ function runSearch() {
           viewInformation();
           break;
         //===============PATH TO THE 'UPDATE' SELECTOR========//
-        case "UPDATE A(n) Department, Role, and/or Employee":
+        case "UPDATE An Employee Role":
           updateInformation();
           break;
       }
@@ -297,16 +297,19 @@ function viewEmployee() {
 }
 //========================FUNCTION ROUTE TO UPDATE THE EMPLOYEE ROLE=============================//
 function updateInformation() {
-  inquirer.prompt({
-    name: "action",
-    type: "rawlist",
-    Message: "WHICH EMPLOYEE WOULD YOU LIKE TO UPDATE?",
-    choices: employeeResponse.map((empoyee) => {
-      return {
-        value: employee.id,
-        name: employee.first_name + " " + employee.last_name,
-        role: employee.role_id,
-      };
-    }),
+  connection.query("SELECT * FROM employee", function (err, employeeResponse) {
+    if (err) throw err;
+    inquirer.prompt({
+      name: "action",
+      type: "rawlist",
+      message: "WHICH EMPLOYEE WOULD YOU LIKE TO UPDATE?",
+      choices: employeeResponse.map((employee) => {
+        return {
+          value: employee.id,
+          name: employee.first_name + " " + employee.last_name,
+          role: employee.role_id,
+        };
+      }),
+    });
   });
 }
