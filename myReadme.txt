@@ -13,3 +13,7 @@ managers, displaying total salaries for the company, and much more if desired.
 
 Ultimately this is a framework that can be flexed to any number of applications, and that felxibility is displayed
 within these files. 
+
+#SCREENSHOTS#
+![Week_12_Employee_tracker-2](https://user-images.githubusercontent.com/40879599/102043876-7dc86b80-3d8a-11eb-8b7e-f2494309fd39.PNG)
+![Week_12_Employee_tracker](https://user-images.githubusercontent.com/40879599/102043883-802ac580-3d8a-11eb-97c6-c699d71a6a5f.PNG)
