@@ -320,7 +320,7 @@ function updateInformation(doneUpdateEmployeeRCallback) {
                       { role_Id: userInput.employeeUpdateRole },
                       { id: userInput.employeeId }
                   ], function (err, res) {
-                      console.log('error:' + err);
+                      // console.log('error:' + err);
                       viewEmployee();
                   });
           })
