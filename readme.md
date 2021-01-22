@@ -1,4 +1,4 @@
-## EMPLOYEE TRACKER##
+## EMPLOYEE_Database##
 This application is for the Week-12 homework to impliment "MySql" functionality through "node.js"
 
 While there are other apps, this gives an easy user interface for any client to utilize to build a simple record
@@ -13,3 +13,7 @@ managers, displaying total salaries for the company, and much more if desired.
 
 Ultimately this is a framework that can be flexed to any number of applications, and that felxibility is displayed
 within these files. 
+
+## Link to the video to showcase functionality ##
+https://drive.google.com/file/d/1mi5V485khHo-XVS3BexCjl47dRw2daMq/view
+
