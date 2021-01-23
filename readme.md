@@ -20,3 +20,7 @@ https://drive.google.com/file/d/1mi5V485khHo-XVS3BexCjl47dRw2daMq/view
 #SCREENSHOTS#
 ![Week_12_Employee_tracker-2](https://user-images.githubusercontent.com/40879599/102043876-7dc86b80-3d8a-11eb-8b7e-f2494309fd39.PNG)
 ![Week_12_Employee_tracker](https://user-images.githubusercontent.com/40879599/102043883-802ac580-3d8a-11eb-97c6-c699d71a6a5f.PNG)
+
+## Contact
+Developer: Nicolai Pitroff
+email: nicolai.pitroff@gmail.com
